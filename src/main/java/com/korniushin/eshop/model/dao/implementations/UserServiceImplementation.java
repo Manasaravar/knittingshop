@@ -2,10 +2,7 @@ package com.korniushin.eshop.model.dao.implementations;
 
 import com.korniushin.eshop.model.dao.repositories.UserRepository;
 import com.korniushin.eshop.model.dao.interfaces.UserService;
-import com.korniushin.eshop.model.entities.Order;
-import com.korniushin.eshop.model.entities.OrderStatus;
-import com.korniushin.eshop.model.entities.Role;
-import com.korniushin.eshop.model.entities.User;
+import com.korniushin.eshop.model.entities.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -37,6 +34,7 @@ public class UserServiceImplementation implements UserService {
        if (userRepository.findByUsername(user.getUsername()).isEmpty()) {
 
            Set<Order> orders = new HashSet<>();
+           Set<Reviews> reviews = new HashSet<>();
            Order order = Order.builder()
                    .user(user)
                    .address("")
@@ -52,6 +50,7 @@ public class UserServiceImplementation implements UserService {
            user.setPassword(passwordEncoder.encode(user.getPassword()));
            user.setRole(Role.ROLE_CLIENT);
            user.setOrders(orders);
+           user.setReviews(reviews);
 
            return userRepository.save(user);
        }
@@ -61,15 +60,18 @@ public class UserServiceImplementation implements UserService {
 
     @Override
     public User update(User user) {
-        User userToUpdate = userRepository.findById(user.getId()).get();
-        userToUpdate.setUsername(user.getUsername());
-        userToUpdate.setPhone(user.getPhone());
-        userToUpdate.setEmail(user.getEmail());
-        userToUpdate.setPassword(passwordEncoder.encode(user.getPassword()));
+        if (!userRepository.findByUsername(user.getUsername()).equals("admin")||
+                !userRepository.findByUsername(user.getUsername()).equals("manager")) {
+            User userToUpdate = userRepository.findById(user.getId()).get();
+            userToUpdate.setUsername(user.getUsername());
+            userToUpdate.setPhone(user.getPhone());
+            userToUpdate.setEmail(user.getEmail());
+            userToUpdate.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        return userRepository.save(userToUpdate);
+            return userRepository.save(userToUpdate);
+        }
+        return null;
     }
-
 
     @Override
     public boolean deleteById(Long id) {
@@ -84,9 +86,12 @@ public class UserServiceImplementation implements UserService {
     public User findByUsername(String username) {
         return userRepository.findUserByUsername(username);
     }
-    @Override
+
     public User edit(User user) {
-        return userRepository.save(user);
+        User userToUpdate = userRepository.findUserByUsername(user.getUsername());
+        userToUpdate.setPhone(user.getPhone());
+        userToUpdate.setEmail(user.getEmail());
+        return userRepository.save(userToUpdate);
     }
 
 

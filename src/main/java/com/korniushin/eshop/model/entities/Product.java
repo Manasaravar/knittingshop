@@ -1,10 +1,7 @@
 package com.korniushin.eshop.model.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.List;
@@ -14,6 +11,7 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 @Builder
 @Entity
 @Table(name = "products")
@@ -22,7 +20,7 @@ public class Product {
         @Id
         @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQ_NAME)
         @SequenceGenerator(name = SEQ_NAME, sequenceName = SEQ_NAME, allocationSize = 1)
-        private long id;
+        private Long id;
 
         @Column(name = "article", unique = true)
         private String article;
@@ -46,5 +44,9 @@ public class Product {
         @ManyToOne(cascade = CascadeType.PERSIST)
         @JoinColumn(name = "composition_id")
         private Composition composition;
+
+        @OneToMany (mappedBy = "product", cascade = CascadeType.ALL)
+        //@JoinColumn(name = "order_id")
+        private Set<Reviews> reviews;
 
 }

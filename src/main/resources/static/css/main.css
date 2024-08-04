@@ -2069,4 +2069,30 @@ h2.title {
   color: #FE980F;
 }
 
+/*************************
+******* Review block CSS ********
+**************************/
 
+.reviews {
+  background-color: #f8f8f8;
+  padding: 20px;
+  border-radius: 5px;
+
+}
+.review {
+  padding: 10px;
+  border-bottom: 1px solid #eaeaea;
+
+}
+.review:last-child {
+  border-bottom: none;
+}
+.review-text {
+  font-size: 12px;
+  margin-bottom: 5px;
+
+}
+.review-author {
+  font-size: 14px;
+  color: #999;
+}

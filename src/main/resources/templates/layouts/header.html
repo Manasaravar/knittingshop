@@ -14,15 +14,15 @@
                         <div class="contactinfo">
                             <ul class="nav nav-pills">
                                 <li><a href="#"><i class="fa fa-phone"></i>8 800 123 45 67</a></li>
-                                <li><a href="#"><i class="fa fa-envelope"></i>knittingshop@list.ru</a></li>
+                                <li><a href="/contacts"><i class="fa fa-envelope"></i>knittingshop@list.ru</a></li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="social-icons pull-right">
                             <ul class="nav navbar-nav">
-                                <li><a href="#"><i class="fa fa-vk"></i></a></li>
-                                <li><a href="#"><i class="fa fa-youtube"></i></a></li>
+                                <li><a href="https://vk.com/feed"><i class="fa fa-vk"></i></a></li>
+                                <li><a href="https://www.youtube.com/?app=desktop&hl=ru"><i class="fa fa-youtube"></i></a></li>
                             </ul>
                         </div>
                     </div>
@@ -44,8 +44,8 @@
                                 <li><a href="/account"><i class="fa fa-user"></i>Личный кабинет</a></li>
                                 <li><a href="/cart"><i class="fa fa-shopping-cart"></i> Корзина</a></li>
                                 <li><a href="/login"><i class="fa fa-lock"></i>Регистрация</a></li>
-                                <li><a sec:authorize="isAuthenticated() && hasRole('ADMIN')"
-                                       href="/admin/users"><i class="fa fa-lock"></i>ADMIN</a></li>
+                                <li><a sec:authorize="isAuthenticated() && (hasRole('ADMIN') || hasRole('MANAGER'))"
+                                       href="/admin"><i class="fa fa-lock"></i>ADMIN</a></li>
                             </ul>
                         </div>
                     </div>
@@ -76,7 +76,7 @@
                                         <li><a href="/login">Регистрация</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="/404">404</a></li>
+                                <li><a href="/delivery">Доставка</a></li>
                                 <li><a href="/contacts">Контакты</a></li>
                             </ul>
                         </div>

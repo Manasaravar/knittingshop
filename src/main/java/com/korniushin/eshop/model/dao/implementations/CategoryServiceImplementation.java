@@ -1,5 +1,6 @@
 package com.korniushin.eshop.model.dao.implementations;
 
+import com.korniushin.eshop.DTO.CategoryDTO;
 import com.korniushin.eshop.model.dao.repositories.CategoryRepository;
 import com.korniushin.eshop.model.entities.Category;
 import com.korniushin.eshop.model.dao.interfaces.CategoryService;
@@ -34,6 +35,7 @@ public class CategoryServiceImplementation implements CategoryService {
     public Category update(Category category) {
         Category newCategory = categoryRepository.findById(category.getId()).get();
         newCategory.setTitle(category.getTitle());
+        newCategory.setProducts(category.getProducts());
         return categoryRepository.save(newCategory);
     }
 
@@ -44,5 +46,16 @@ public class CategoryServiceImplementation implements CategoryService {
             return true;
         }
         return false;
+    }
+    @Override
+    public List<CategoryDTO> getCategories() {
+
+        List <CategoryDTO> categories = categoryRepository.findAll().stream()
+                .map(category -> CategoryDTO.builder()
+                        .id(category.getId())
+                        .title(category.getTitle())
+                        .build())
+                .toList();
+        return categories;
     }
 }

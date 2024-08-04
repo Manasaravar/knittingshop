@@ -37,5 +37,10 @@ values
     (nextval('composition_seq'),'Целлюлоза'),
     (nextval('composition_seq'),'Шелк'),
     (nextval('composition_seq'),'Шерсть для валяния'),
-    (nextval('composition_seq'),'Шерстяная');
+    (nextval('composition_seq'),'Шерстяная'),
+    (nextval('composition_seq'),'Сталь'),
+    (nextval('composition_seq'),'Стекло'),
+    (nextval('composition_seq'),'Пластик'),
+    (nextval('composition_seq'),'Хром');
+
 

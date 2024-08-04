@@ -1,10 +1,13 @@
 package com.korniushin.eshop.DTO;
 
 import com.korniushin.eshop.model.entities.Product;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
-@Data
+@Builder
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 
 public class ProductDTO {
     private Long id;

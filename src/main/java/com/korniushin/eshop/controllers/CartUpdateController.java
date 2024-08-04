@@ -5,12 +5,15 @@ import com.korniushin.eshop.model.dao.interfaces.OrderPositionService;
 import com.korniushin.eshop.model.dao.interfaces.OrderService;
 import com.korniushin.eshop.model.dao.interfaces.ProductService;
 import com.korniushin.eshop.model.entities.Order;
+import com.korniushin.eshop.model.entities.OrderStatus;
 import com.korniushin.eshop.model.entities.Product;
 import com.korniushin.eshop.model.entities.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/cart")
@@ -26,13 +29,16 @@ public class CartUpdateController {
     @PostMapping("/add")
     public void add (@RequestParam Long id, @RequestParam Integer quantity) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Order order = orderService.findOrderByUserId(userService.findById(user.getId()).get().getId());
-       // final Order order = orderService.findById(orderId).get();
-        Product product = productService.findById(id).get();
-       // if (product.getQuantity() >= quantity) {
-            orderService.addPosition(order, product, quantity);
-       // }
-    //   System.out.println("Получен запрос " + id);
+        List<Order> orders = orderService.findOrdersByUserId(userService.findById(user.getId()).get().getId());
+        Order order = new Order();
+        for (Order orderIterator: orders) {
+            if (orderIterator.getOrderStatus().equals(OrderStatus.CART)) {
+                order = orderIterator;
+            }
+        }
+           Product product = productService.findById(id).get();
+           orderService.addPosition(order, product, quantity);
+
     }
 
     @PostMapping("/change")

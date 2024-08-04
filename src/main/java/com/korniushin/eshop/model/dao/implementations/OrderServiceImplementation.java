@@ -8,6 +8,7 @@ import com.korniushin.eshop.model.entities.Order;
 import com.korniushin.eshop.model.entities.OrderPosition;
 import com.korniushin.eshop.model.entities.OrderStatus;
 import com.korniushin.eshop.model.entities.Product;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +23,7 @@ public class OrderServiceImplementation implements OrderService {
     @Autowired
     private ProductRepository productRepository;
 
-    private Set<OrderPosition> orderPositions = new HashSet<>();
+    private final Set<OrderPosition> orderPositions = new HashSet<>();
 
 
     @Override
@@ -33,8 +34,18 @@ public class OrderServiceImplementation implements OrderService {
 
     @Override
     public Order update(Order order) {
+        //order.setUpdated(LocalDateTime.now());
+        Order orderToUpdate = orderRepository.findById(order.getId()).get();
+        orderToUpdate.setCreated(order.getCreated());
+        orderToUpdate.setOrderStatus(order.getOrderStatus());
         order.setUpdated(LocalDateTime.now());
-        return orderRepository.save(order);
+        orderToUpdate.setTotalQuantity(order.getTotalQuantity());
+        orderToUpdate.setTotalPrice(orderToUpdate.getTotalPrice());
+        orderToUpdate.setAddress(order.getAddress());
+        orderToUpdate.setUser(order.getUser());
+        orderToUpdate.setProductsPositions(order.getProductsPositions());
+        return orderRepository.save(orderToUpdate);
+       // return orderRepository.save(order);
     }
 
     @Override
@@ -57,6 +68,7 @@ public class OrderServiceImplementation implements OrderService {
         return orderRepository.findAll();
     }
 
+    @Transactional
     @Override
     public void pay(Long id) {
         Order orderPaid = orderRepository.findById(id).get();
@@ -139,4 +151,18 @@ public class OrderServiceImplementation implements OrderService {
         return orderRepository.findById(id).get().getTotalPrice();
     }
 
+    @Override
+    public List<Order> findOrdersByUserId(Long id) {
+        return orderRepository.findOrdersByUserId(id);
+    }
+
+    @Override
+    public Order findCartByUserId(Long id) {
+        return orderRepository.findOrderByUserIdAndOrderStatus(id, OrderStatus.CART);
+    }
+
+
 }
+
+
+

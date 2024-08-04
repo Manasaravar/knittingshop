@@ -14,10 +14,8 @@
                 <div class="panel-group category-products" id="accordian" >
                     <!--category-productsr-->
                     <div class="panel panel-default" >
-
-                        <th:block th:each="category: ${categories}">
-
-                        <div class="panel-heading" >
+<!--                        <th:block th:each="category: ${categories}">-->
+                        <div class="panel-heading" th:each="category: ${categories}" >
                             <h4 class="panel-title">
                                 <a data-toggle="collapse" data-parent="#accordian" th:href="@{'/category/' + ${category.id}}">
                                         <span class="badge pull-right">
@@ -28,29 +26,16 @@
                                 </a>
                             </h4>
                         </div>
-
-                        </th:block>
-
-<!--                        <div id="knittingthreads" class="panel-collapse collapse">-->
-<!--                            <div class="panel-body">-->
-<!--                                <ul>-->
-
-<!--                                    <li><a href="#">Хлопок </a></li>-->
-<!--                                    <li><a href="#">Шерсть </a></li>-->
-<!--                                    <li><a href="#">Лен</a></li>-->
-<!--                                    <li><a href="#">Махер </a></li>-->
-<!--                                </ul>-->
-<!--                            </div>-->
-<!--                        </div>-->
+<!--                        </th:block>-->
                     </div>
                 </div><!--/category-products-->
 
                 <div class="brands_products"><!--brands_products-->
-                    <h2>Брэнды</h2>
+                    <h2>Бренды</h2>
                     <div class="brands-name">
                         <ul class="nav nav-pills nav-stacked" th:each="brand: ${brands}">
                             <li>
-                                <a href="#" >
+                                <a th:href="@{'/brand/' + ${brand.id}}">
                                     <span class="pull-right" ></span>
                                     [[${brand.title}]]
                                 </a>
@@ -60,9 +45,9 @@
                 </div>
 
                 <!--/brands_products-->
-                <div class="shipping text-center"><!--shipping-->
-                    <img src="/images/home/shipping.png" alt="" />
-                </div><!--/shipping-->
+<!--                <div class="shipping text-center">&lt;!&ndash;shipping&ndash;&gt;-->
+<!--                    <img src="/images/home/shipping.png" alt="" />-->
+<!--                </div>&lt;!&ndash;/shipping&ndash;&gt;-->
             </div>
         </div>
 

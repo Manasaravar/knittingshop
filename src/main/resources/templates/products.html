@@ -19,6 +19,8 @@
 	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/ico/apple-touch-icon-114-precomposed.png">
 	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/ico/apple-touch-icon-72-precomposed.png">
 	<link rel="apple-touch-icon-precomposed" href="/images/ico/apple-touch-icon-57-precomposed.png">
+
+
 </head><!--/head-->
 
 <body>
@@ -37,10 +39,18 @@
 
 			<th:block th:insert="~{layouts/categorybrands.html}"/>
 
-			<!--						<div class="shipping text-center">&lt;!&ndash;shipping&ndash;&gt;-->
-			<!--							<img src="/images/home/shipping.png" alt="" />-->
-			<!--						</div>&lt;!&ndash;/shipping&ndash;&gt;-->
-
+			<div class="col-sm-8">
+				<div class="shop-menu pull-right">
+				<th>
+					<a th:href="@{'/products/page/' + ${currentPage} + '?sortField=price&sortDir=' + ${reverseSortDir}}">
+						Цена</a>
+				</th>&nbsp; &nbsp;
+				<th>
+					<a th:href="@{'/products/page/' + ${currentPage} + '?sortField=brand.title&sortDir=' + ${reverseSortDir}}">
+						Брэнд</a>
+				</th>
+			</div>
+			</div>
 
 			<div class="col-sm-9 padding-right">
 				<div class="features_items"><!--features_items-->
@@ -53,41 +63,53 @@
 
 									<div class="productinfo text-center">
 
-										<img src="/images/shop/alize_gold.png" alt="268х249"/>
+										<img th:src="@{'/images/shop/' + ${product.brand.title} + '.png'}" alt="268х249">
+
+<!--										<img src="/images/shop/alize_gold.png" alt="268х249"/>-->
 										<h2>[[${product.price}]] руб.</h2>
 										<p>[[${product.color}]]</p>
-
-<!--										<form method="post" th:action="@{/cart/add/}">-->
-<!--											<input class="a_button" type="text" value="quantity">-->
-<!--										</form>	-->
-
 											<button th:data-productId="${product.id}" th:onclick="addButtonHandler(this.getAttribute('data-productId'))">
-												Add to cart
+												В корзину
 											</button>
-
-<!--										<a th:href="@{/products/addPosition}" class="btn btn-default add-to-cart">-->
-<!--											<i class="fa fa-shopping-cart"></i>Add to cart</a>-->
 									</div>
 								</div>
 								<div class="choose">
 									<ul class="nav nav-pills nav-justified">
 
-										<li><a th:href="@{'/products/' + ${product.id}}"><i
-												class="fa fa-plus-square"></i>Детализация</a></li>
-
-										<!-- <li><a href=""><i class="fa fa-plus-square"></i>Add to compare</a></li> -->
+										<li><a th:href="@{'/products/' + ${product.id}}">
+											<i class="fa fa-plus-square"></i>Детализация</a></li>
 									</ul>
 								</div>
 							</div>
 						</div>
 					</th:block>
 
-					<ul class="pagination">
-						<li class="active"><a href="">1</a></li>
-						<li><a href="">2</a></li>
-						<li><a href="">3</a></li>
-						<li><a href="">&raquo;</a></li>
-					</ul>
+<!--Pagination-->
+					<div th:if="${totalPages > 1}">
+						<div class="row col-sm-12">
+							<div class="col-sm-2">
+								Total: [[${totalItems}]]
+							</div>
+							<div class="col-sm-5">
+									<span th:each="i: ${#numbers.sequence(1, totalPages)}">
+								<a th:if="${currentPage != i}"
+								   th:href="@{'/products/page/' + ${i} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
+								<span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;
+									</span>
+							</div>
+							<div class="col-sm-1">
+								<a th:if="${currentPage < totalPages}"
+								   th:href="@{'/products/page/' + ${currentPage + 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
+								<span th:unless="${currentPage < totalPages}">Next</span>
+							</div>
+
+							<div class="col-sm-1">
+								<a th:if="${currentPage < totalPages}" th:href="@{'/products/page/' + ${totalPages} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
+								<span th:unless="${currentPage < totalPages}">Last</span>
+							</div>
+						</div>
+					</div>
+
 				</div><!--features_items-->
 			</div>
 		</div>

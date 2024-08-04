@@ -28,12 +28,12 @@
                 <td>[[${user.role}]]</td>
 
                 <td>
-                <a class="a_button" th:href="@{'/admin/users/' + ${user.id}}">edit</a>
+                <a class="button" th:href="@{'/admin/users/' + ${user.id}}">edit</a>
                 </td>
 
                 <td>
                     <form method="post" th:action="@{'/admin/users/delete/' + ${user.id}}">
-                        <input class="a_button" type="submit" value="delete">
+                        <input class="button" type="submit" value="delete">
                     </form>
                 </td>
             </tr>

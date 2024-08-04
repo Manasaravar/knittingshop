@@ -1,5 +1,6 @@
 package com.korniushin.eshop.model.dao.implementations;
 
+import com.korniushin.eshop.DTO.BrandDTO;
 import com.korniushin.eshop.model.dao.interfaces.BrandService;
 import com.korniushin.eshop.model.dao.repositories.BrandRepository;
 import com.korniushin.eshop.model.entities.Brand;
@@ -33,7 +34,7 @@ public class BrandServiceImplementation implements BrandService {
         Brand newBrand = brandRepository.findById(brand.getId()).get();
         newBrand.setTitle(brand.getTitle());
         newBrand.setProducts(brand.getProducts());
-        return null;
+        return brandRepository.save(newBrand);
     }
 
     @Override
@@ -43,5 +44,15 @@ public class BrandServiceImplementation implements BrandService {
             return true;
         }
         return false;
+    }
+    @Override
+    public List<BrandDTO> getBrands () {
+        List<BrandDTO> brands = brandRepository.findAll().stream()
+                .map(brand -> BrandDTO.builder()
+                        .id(brand.getId())
+                        .title(brand.getTitle())
+                        .build())
+                .toList();
+        return brands;
     }
 }

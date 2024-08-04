@@ -3,10 +3,7 @@ package com.korniushin.eshop.controllers;
 import com.korniushin.eshop.model.dao.interfaces.OrderPositionService;
 import com.korniushin.eshop.model.dao.interfaces.OrderService;
 import com.korniushin.eshop.model.dao.interfaces.ProductService;
-import com.korniushin.eshop.model.entities.Order;
-import com.korniushin.eshop.model.entities.OrderPosition;
-import com.korniushin.eshop.model.entities.Product;
-import com.korniushin.eshop.model.entities.User;
+import com.korniushin.eshop.model.entities.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -30,14 +28,24 @@ public class OrderController {
     @GetMapping
     public String cart(Model model){
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        List<Order> orders = orderService.findOrdersByUserId(userService.findById(user.getId()).get().getId());
+        Order order = new Order();
+        for (Order orderIterator: orders) {
+            if (orderIterator.getOrderStatus().equals(OrderStatus.CART)) {
+                order = orderIterator;
+            }
+        }
 
-        Order order = orderService.findOrderByUserId(userService.findById(user.getId()).get().getId());
-        Set<OrderPosition> orderPositions = order.getProductsPositions();
-        model.addAttribute("totalPrice", orderService.getOrderTotalPrice(order.getId()));
-        model.addAttribute("totalQuantity", orderService.getOrderTotalQuantity(order.getId()));
-        model.addAttribute("order", order);
-        model.addAttribute("orderPositions", orderPositions);
-        return "cart";
+      //  Order order = orderService.findOrderByUserId(userService.findById(user.getId()).get().getId());
+
+            Set<OrderPosition> orderPositions = order.getProductsPositions();
+            model.addAttribute("totalPrice", orderService.getOrderTotalPrice(order.getId()));
+            model.addAttribute("totalQuantity", orderService.getOrderTotalQuantity(order.getId()));
+            model.addAttribute("order", order);
+            model.addAttribute("orderPositions", orderPositions);
+
+            return "cart";
+
     }
 
     @PostMapping("/paid/{id}")
@@ -69,25 +77,4 @@ public class OrderController {
         return "redirect:/cart";
     }
 
-
-
-
-//    @PostMapping("/addPosition")
-//    public void addPosition(Long productId, Integer quantity, Long orderId) {
-//        final Order order = orderService.findById(orderId).get();
-//        final Product product = productService.findById(productId).get();
-//        if (product.getQuantity() >= quantity) {
-//            orderService.addPosition(order, product, quantity);
-//        }
-//    }
-
-//    @PostMapping ("/delPosition")
-//    public void deletePosition(Long productId, Integer quantity, Long orderId){
-//        Order order = orderService.findById(orderId).get();
-//        final Product product = productService.findById(productId).get();
-//        if(order.getTotalQuantity() >= quantity) {
-//            orderService.delPosition(order, product, quantity);
-//        }
-
-//    }
 }

@@ -24,11 +24,20 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQ_NAME)
     @SequenceGenerator(name = SEQ_NAME,sequenceName = SEQ_NAME,allocationSize = 1)
-    private long id;
+    private Long id;
+
+    @Column(name = "username", nullable = false, unique = true, length = 25)
     private String username;
+    @Column(name = "password", nullable = false)
     private String password;
+
+    @Column(name = "email", unique = true, nullable = false)
     private String email;
+
+    @Column(name = "phone", length = 10)
     private String phone;
+
+    @Column(name = "archive")
     private boolean archive;
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -37,11 +46,16 @@ public class User implements UserDetails {
     //@JoinColumn(name = "order_id")
     private Set<Order> orders;
 
+    @OneToMany (mappedBy = "user", cascade = CascadeType.ALL)
+    //@JoinColumn(name = "order_id")
+    private Set<Reviews> reviews;
 
-    public User(String username, String password) {
+    public User(String username, String password, String email) {
         this.username = username;
         this.password = password;
+        this.email = email;
         this.orders = new HashSet<>();
+        this.reviews = new HashSet<>();
         Order order = Order.builder()
                 .user(this)
                 .address("")
@@ -59,7 +73,6 @@ public class User implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return new ArrayList<>() {{add(new SimpleGrantedAuthority(role.name()));}};
     }
-
 
     @Override
     public boolean isAccountNonExpired() {
@@ -80,4 +93,6 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+
 }

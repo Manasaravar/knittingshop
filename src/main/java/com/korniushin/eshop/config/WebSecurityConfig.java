@@ -36,13 +36,16 @@ public class WebSecurityConfig   {
                 .authorizeHttpRequests(request ->
                         request
 
-                                .requestMatchers("/", "/products/**", "/products", "/productdetails/**", "/index", "/login", "/contacts", "/404", "/search", "/searchResults").permitAll()
+                                .requestMatchers("/", "/products/**", "/products", "/productdetails/**", "/index", "/login", "/contacts",
+                                        "/search", "/searchResults", "/category/**", "/brand/**", "/products/page/**",
+                                        "/error", "/error/**", "/delivery", "index/send/**", "/index/send","/textMail",
+                                        "/contacts/contactUs", "/aboutUs", "/vacancies", "/faq").permitAll()
                                 .requestMatchers("/registration").hasRole("ANONYMOUS")
 //                                .requestMatchers(new AntPathRequestMatcher("/admin/users", "GET")).authenticated()
 //                                .requestMatchers(new AntPathRequestMatcher("/admin/users", "POST")).hasAnyRole("MANAGER", "ADMIN")
                                 //.requestMatchers("/logout", "/admin/users", "/account").authenticated()
-                                .requestMatchers("/admin/users").hasAnyRole("MANAGER", "ADMIN")
-                                .requestMatchers("/admin/users/delete/**").hasRole("ADMIN")
+                                .requestMatchers("/admin/users", "/admin/items", "/admin/items/**","/admin/orders/").hasAnyRole("MANAGER", "ADMIN")
+                                .requestMatchers("/admin/users/delete/**", "/admin/items/delete/**", "/admin/orders/delete/**").hasRole("ADMIN")
                                 .requestMatchers("/cart", "/cart/add", "cart/remove/**", "/cart/change", "/cart/paid/**", "/account", "/account/edit").hasRole("CLIENT")
                                 .anyRequest().authenticated()
 

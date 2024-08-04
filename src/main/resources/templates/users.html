@@ -7,17 +7,14 @@
 </head>
 <body>
 
-<a class="a_button" href="/index">Главная</a>
-<a class="a_button" href="/admin/users">Администрирование</a>
-<a class="a_button" href="/logout">Выйти</a>
-
+<th:block th:insert="~{layouts/adminheader.html}"/>
 
 <div class="container">
-        <div class="modal">
-            <th:block th:insert="~{/layouts/users/formLayout.html::usersFormLayout(${user})}"/>
+    <div class="modal">
+        <th:block th:insert="~{/layouts/users/formLayout.html::usersFormLayout(${user})}"/>
 
-            <th:block th:insert="~{/layouts/users/tableLayout.html::usersTableLayout(${users})}"/>
-        </div>
+        <th:block th:insert="~{/layouts/users/tableLayout.html::usersTableLayout(${users})}"/>
     </div>
+</div>
 </body>
 </html>

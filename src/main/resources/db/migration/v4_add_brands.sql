@@ -23,7 +23,7 @@ INSERT INTO brands (id, title)
 values (nextval('brand_seq'),'WOOL SEA');
 
 INSERT INTO brands (id, title)
-values (nextval('brand_seq'),'WOOL SEA');
+values (nextval('brand_seq'),'WOOL');
 
 INSERT INTO brands (id, title)
 values (nextval('brand_seq'),'ETROFIL');
@@ -72,3 +72,9 @@ values (nextval('brand_seq'),'КОМБИНАТ им. КИРОВА');
 
 INSERT INTO brands (id, title)
 values (nextval('brand_seq'),'РАССКАЗОВСКАЯ ПРЯЖА');
+
+INSERT INTO brands (id, title)
+values (nextval('brand_seq'),'ZINGER');
+
+INSERT INTO brands (id, title)
+values (nextval('brand_seq'),'Ивановские пуговицы');

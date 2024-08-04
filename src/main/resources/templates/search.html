@@ -34,52 +34,32 @@
 <section>
   <div class="container">
     <div class="row">
-
-<!--      <th:block th:insert="~{layouts/categorybrands.html}"/>-->
-
-      <!--						<div class="shipping text-center">&lt;!&ndash;shipping&ndash;&gt;-->
-      <!--							<img src="/images/home/shipping.png" alt="" />-->
-      <!--						</div>&lt;!&ndash;/shipping&ndash;&gt;-->
-
-
       <div class="col-sm-9 padding-right">
         <div class="features_items"><!--features_items-->
           <h2 class="title text-center">Товары</h2>
           <th:block th:each="product: ${listProducts}">
             <div class="col-sm-4">
               <div class="product-image-wrapper">
-
                 <div class="single-products">
-
                   <div class="productinfo text-center">
-
-                    <img src="/images/shop/alize_gold.png" alt="268х249"/>
+                    <img th:src="@{'/images/shop/' + ${product.brand.title} + '.png'}" alt="268х249">
                     <h2>[[${product.price}]] руб.</h2>
                     <p>[[${product.color}]]</p>
 
                     <button th:data-productId="${product.id}" th:onclick="addButtonHandler(this.getAttribute('data-productId'))">
-                      Add to cart
+                      В корзину
                     </button>
                  </div>
                 </div>
                 <div class="choose">
                   <ul class="nav nav-pills nav-justified">
-
                     <li><a th:href="@{'/products/' + ${product.id}}"><i
                             class="fa fa-plus-square"></i>Детализация</a></li>
-
                   </ul>
                 </div>
               </div>
             </div>
           </th:block>
-
-<!--          <ul class="pagination">-->
-<!--            <li class="active"><a href="">1</a></li>-->
-<!--            <li><a href="">2</a></li>-->
-<!--            <li><a href="">3</a></li>-->
-<!--            <li><a href="">&raquo;</a></li>-->
-<!--          </ul>-->
         </div><!--features_items-->
       </div>
     </div>

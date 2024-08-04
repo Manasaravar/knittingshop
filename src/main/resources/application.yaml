@@ -1,8 +1,43 @@
 spring:
+#  mail:
+##    default-encoding: UTF-8
+#    host: smtp.gmail.com
+#    port: 587
+#    username: psturkey70@gmail.com
+#    password: Sk3295318
+#    properties:
+#      mail:
+#        smtp:
+#          auth: true
+#          starttls:
+#            enable: true
+#        debug: true
+#    test-connection: false
+#    protocol: smtp
+  mail:
+#    default-encoding: UTF-8
+    host: smtp.mail.ru
+    port: 465
+    username: knittingshop@list.ru
+    password: G8CEnhriHEzwHX6jAcPe
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+        debug: true
+    test-connection: false
+    protocol: smtps
+
+
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
+
+
+
   datasource:
     url: jdbc:postgresql://localhost:5432/knittingshop
     username: postgres
@@ -10,4 +45,12 @@ spring:
   flyway:
     baseline-on-migrate: true
 
+server:
+  error:
+    path: /error
+    whitelabel:
+      enabled: false
+  port: 8080
+
 #debug: true
+

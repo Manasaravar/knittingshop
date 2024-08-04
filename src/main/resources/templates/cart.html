@@ -35,7 +35,7 @@
 	<div class="container">
 		<div class="breadcrumbs">
 			<ol class="breadcrumb">
-				<li><a href="#">Главная</a></li>
+				<li><a href="/index">Главная</a></li>
 				<li class="active">Корзина покупок</li>
 			</ol>
 			<div class="single_field" sec:authorize="hasRole('CLIENT')"></div>
@@ -46,10 +46,9 @@
 		<div class="table-responsive cart_info">
 			<table class="table table-condensed">
 				<thead>
-
 				<tr class="cart_menu">
 					<td class="image">Товар</td>
-					<td class="description"></td>
+					<td class="description">Описание</td>
 					<td class="price">Цена</td>
 					<td class="quantity">Количество</td>
 					<td class="total">Итого</td>
@@ -60,7 +59,7 @@
 				<th:block th:each="orderPosition: ${orderPositions}">
 				<tr>
 					<td class="cart_product">
-						<a href=""><img src="/images/cart/alize_gold.png" alt="Фото товара"></a>
+						<img th:src="@{'/images/cart/' + ${orderPosition.product.brand.title} + '.png'}" alt="268х249">
 					</td>
 					<td class="cart_description">
 						<h4><a th:href="@{'/products/' + ${orderPosition.product.id}}">Наименование товара: [[${orderPosition.product.brand.title}]]</a></h4>
@@ -71,11 +70,14 @@
 					</td>
 					<td class="cart_quantity">
 						<div class="cart_quantity_button">
-							<button class="cart_quantity_up" onclick="addButtonHandler(event,1)"> + </button>
+
+							<a class="cart_quantity_up" onclick="addButtonHandler(event,1)" size="1" th:href="@{/cart}"> + </a>
+
 							<input class="cart_quantity_input" type="text" name="quantity"
 								   th:value="${orderPosition.orderQuantity}" th:id="${orderPosition.id}" autocomplete="off"
-								   size="1">
-							<button class="cart_quantity_down" onclick="addButtonHandler(event,-1)"> - </button>
+								   size="2">
+
+							<a class="cart_quantity_down" onclick="addButtonHandler(event,-1)" size="1" th:href="@{/cart}"> - </a>
 						</div>
 					</td>
 					<td class="cart_total">
@@ -86,7 +88,7 @@
 					<td class="cart_delete">
 						<form method="post" th:action="@{'/cart/remove/' + ${orderPosition.id}}"
 							  th:object="${orderPosition}">
-							<input class="a_button" type="submit" value="delete">
+							<input class="a_button" type="submit" value="Удалить">
 						</form>
 <!--						<a class="cart_quantity_delete" th:href="@{'/cart/remove/' + ${orderPosition}}"><i class="fa fa-times"></i></a>-->
 					</td>
@@ -102,6 +104,7 @@
 
 						<td class="total" th:text="${totalPrice}"></td>
 					</th:block>
+<!--					<td><a colspan="3" th:href="@{/cart}">reload card</a></td>-->
 					<td></td>
 				</tr>
 				</th:block>
@@ -139,17 +142,7 @@
 						</form>
 					</ul>
 				</div>
-<!--					<ul class="user_info">-->
-<!--						<li class="single_field">Город:</li>-->
-<!--						<input type="text" name="city">-->
-<!--						<li class="single_field">Улица:</li>-->
-<!--						<input type="text" name="street">-->
-<!--						<li class="single_field">Дом:</li>-->
-<!--						<input type="text" name="building">-->
-<!--						<li class="single_field zip-field">Примечание:</li>-->
-<!--						<input type="text" name="note">-->
-<!--					</ul>-->
-<!--					<a class="btn btn-default check_out" href="">Продолжить</a>-->
+
 				</div>
 			</div>
 			<div class="col-sm-6">
@@ -181,9 +174,9 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.js"> </script>
 
-<script src="/cart.js">
+<script src="/cart.js"> </script>
 
-</script>
+
 
 <!--    <script src="js/jquery.js"></script>-->
 <!--	<script src="js/bootstrap.min.js"></script>-->

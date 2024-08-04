@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>ЗАКАЗЫ</h2>
+<th:block th:fragment="ordersTableLayout(orders)">
+    <table class="table">
+        <thead>
+        <th>id</th>
+        <th>Создание</th>
+        <th>Изменение</th>
+        <th>Статус</th>
+        <th>Стоимость</th>
+        <th>Количество</th>
+        <th>Адрес</th>
+        <th>Клиент</th>
+
+
+        <th>edit</th>
+        <th>delete</th>
+        </thead>
+        <tbody>
+        <th:block th:each="order : ${orders}">
+            <tr>
+                <td>[[${order.id}]]</td>
+                <td>[[${order.created}]]</td>
+                <td>[[${order.updated}]]</td>
+                <td>[[${order.orderStatus}]]</td>
+                <td>[[${order.totalPrice}]]</td>
+                <td>[[${order.totalQuantity}]]</td>
+                <td>[[${order.address}]]</td>
+                <td>[[${order.user.username}]]</td>
+
+
+                <td>
+                <a class="button" th:href="@{'/admin/orders/' + ${order.id}}">edit</a>
+                </td>
+
+                <td>
+                    <form method="post" th:action="@{'/admin/orders/delete/' + ${order.id}}">
+                        <input class="button" type="submit" value="delete">
+                    </form>
+                </td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+</th:block>
+</body>
+</html>

@@ -22,6 +22,7 @@
 	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/ico/apple-touch-icon-114-precomposed.png">
 	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/ico/apple-touch-icon-72-precomposed.png">
 	<link rel="apple-touch-icon-precomposed" href="/images/ico/apple-touch-icon-57-precomposed.png">
+
 </head><!--/head-->
 
 <body>
@@ -71,9 +72,9 @@
 				<div class="col-sm-6">
 					<div class="chose_area">
 
-						<div class="single_field" sec:authorize="hasRole('CLIENT')">HELLO CLIENT:</div>
-						<div class="single_field" sec:authorize="hasRole('MANAGER')">HELLO MANAGER.</div>
-						<div class="single_field" sec:authorize="hasRole('ADMIN')">HELLO ADMIN.</div>
+						<div class="single_field" sec:authorize="hasRole('CLIENT')"></div>
+						<div class="single_field" sec:authorize="hasRole('MANAGER')"></div>
+						<div class="single_field" sec:authorize="hasRole('ADMIN')"></div>
 						<div sec:authorize="isAuthenticated()"></div>
 <!--						<div sec:authentication="name"></div>-->
 
@@ -82,7 +83,8 @@
 							<div class="user_info">
 								<table>
 									<tr class="single_field">Имя
-										<label>	<input type="text" th:field="*{username}"> </label>
+<!--										<label>	<input type="text" th:field="*{username}"> </label>-->
+										<label> [[${user.username}]] </label>
 									</tr>
 									<tr class="single_field">email
 										<label><input type="email" th:field="*{email}"></label>
@@ -127,14 +129,16 @@
 							<td class="description">Состав</td>
 							<td class="quantity">Артикул</td>
 							<td class="total">Стоимость</td>
+							<td class="description">Статус</td>
 							<td></td>
 						</tr>
 					</thead>
 
-					<tbody>
-					<th:block th:each="orderPosition: ${orderPositions}">
-						<tr>
 
+					<th:block th:each="order: ${orders}" class="table table-condensed total-result">
+						<tbody>
+						<th:block th:each="orderPosition: ${order.getProductsPositions()}">
+							<tr>
 								<td class="cart_product">
 									<a href=""><img src="" alt="">[[${orderPosition.product.brand.title}]]</a>
 								</td>
@@ -142,22 +146,21 @@
 									<h4><a href=""></a></h4>
 									<p>[[${orderPosition.product.composition.title}]]</p>
 								</td>
-								<td lass="cart_description">
+								<td class="cart_description">
 									<p>[[${orderPosition.product.article}]]</p>
 								</td>
 								<td class="cart_price">
 									<p>[[${orderPosition.product.price}]]</p>
 								</td>
-
-						</tr>
-					</th:block>
-					</tbody>
-					<th:block th:object="${order}" class="table table-condensed total-result">
+							</tr>
+						</th:block>
+						</tbody>
 						<tr>
 <!--							<td colspan="4">&nbsp;</td>-->
 							<td colspan="2">Итого:
 										<td>Количество:[[${order.totalQuantity}]]</td>
 										<td>[[${order.totalPrice}]]</td>
+										<td>[[${order.orderStatus}]]</td>
 <!--										<td>Итого</td>-->
 <!--										<td><span>ХХ руб</span></td>-->
 							</td>

@@ -1,12 +1,15 @@
 package com.korniushin.eshop.controllers;
 
+import com.korniushin.eshop.DTO.BrandDTO;
+import com.korniushin.eshop.DTO.CategoryDTO;
+import com.korniushin.eshop.DTO.LessonDTO;
 import com.korniushin.eshop.DTO.ProductDTO;
-import com.korniushin.eshop.model.dao.interfaces.BrandService;
-import com.korniushin.eshop.model.dao.interfaces.ProductService;
+import com.korniushin.eshop.model.Mail;
+import com.korniushin.eshop.model.dao.interfaces.*;
 import com.korniushin.eshop.model.entities.Brand;
 import com.korniushin.eshop.model.entities.Category;
-import com.korniushin.eshop.model.dao.interfaces.CategoryService;
 
+import com.korniushin.eshop.model.entities.Lesson;
 import com.korniushin.eshop.model.entities.Product;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.repository.query.Param;
@@ -19,7 +22,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @Controller
@@ -29,16 +35,25 @@ public class ViewController {
     private final CategoryService categoryService;
     private final BrandService brandService;
     private final ProductService productService;
-
-
+    private final MailService mailService;
+    private final LessonService lessonService;
 
     @GetMapping("/index")
 
     public String getIndexPage(Model model) {
 
-        model.addAttribute("brands", getBrands());
+        model.addAttribute("brands", brandService.getBrands());
 
-        model.addAttribute("categories", getCategories());
+        model.addAttribute("categories", categoryService.getCategories());
+
+        List <ProductDTO> productsRecommended = productService.getProducts().stream()
+                .filter(p -> p.getPrice() <= 300 && Objects.equals(p.getBrand(), "DROPS"))
+                .toList();
+
+        model.addAttribute("products", productsRecommended);
+
+        List<Lesson> lessons = lessonService.all();
+        model.addAttribute("lessons", lessons);
 
         return "index";
     }
@@ -60,8 +75,8 @@ public class ViewController {
 
     @GetMapping("/category/{id}")
     public String categoryPage(@PathVariable Long id, Model model){
-        model.addAttribute("categories", getCategories());
-        model.addAttribute("brands", getBrands());
+        model.addAttribute("categories", categoryService.getCategories());
+        model.addAttribute("brands", brandService.getBrands());
         final Set<com.korniushin.eshop.model.entities.Product> productsSet = categoryService.findById(id).get().getProducts();
         List<ProductDTO> products = productsSet.stream()
                 .map(ProductDTO::new)
@@ -72,23 +87,29 @@ public class ViewController {
         return "searchResults";
     }
 
-    public List<Brand> getBrands () {
-        List<Brand> brands = brandService.all().stream()
-                .map(brand -> Brand.builder()
-                        .title(brand.getTitle())
-                        .build())
+    @GetMapping("/brand/{id}")
+    public String brandPage(@PathVariable Long id, Model model){
+        model.addAttribute("categories", categoryService.getCategories());
+        model.addAttribute("brands", brandService.getBrands());
+        final Set<com.korniushin.eshop.model.entities.Product> productsSet = brandService.findById(id).get().getProducts();
+        List<ProductDTO> products = productsSet.stream()
+                .map(ProductDTO::new)
                 .toList();
-        return brands;
+
+        model.addAttribute("products", products);
+
+        return "searchResults";
     }
 
-    public List<Category> getCategories() {
+    //Обратная связь
+    @PostMapping("/send/textMail")
+    public String sendTextMail(String message){
+        Mail mail = new Mail(null, message,null,null);
+        mailService.sendTextMail(mail);
+        return "redirect:/index";
 
-        List <Category> categories = categoryService.all().stream()
-                .map(category -> Category.builder()
-                        .title(category.getTitle())
-                        .build())
-                .toList();
-        return categories;
     }
+
+
 
 }

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+  <meta charset="UTF-8">
+  <title>Items</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+<th:block th:insert="~{layouts/adminheader.html}"/>
+
+<div class="container">
+  <div class="modal">
+    <th:block th:insert="~{/layouts/orders/formLayout.html::ordersFormLayout(${order})}"/>
+
+    <th:block th:insert="~{/layouts/orders/tableLayout.html::ordersTableLayout(${orders})}"/>
+  </div>
+</div>
+
+
+</body>
+</html>

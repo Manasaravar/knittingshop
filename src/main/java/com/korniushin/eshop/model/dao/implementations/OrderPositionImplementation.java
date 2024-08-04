@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class OrderPositionImplementation implements OrderPositionService {
@@ -17,14 +18,23 @@ public class OrderPositionImplementation implements OrderPositionService {
 
     @Override
     public Integer change(Long id, Integer quantity) {
-        OrderPosition persistentOP = orderPositionRepository.findById(id).get();
-        persistentOP.setOrderQuantity(persistentOP.getOrderQuantity() + quantity);
-        return orderPositionRepository.save(persistentOP).getOrderQuantity();
+
+            OrderPosition persistentOP = orderPositionRepository.findById(id).get();
+        if ((persistentOP.getOrderQuantity() + quantity) > 0) {
+            persistentOP.setOrderQuantity(persistentOP.getOrderQuantity() + quantity);
+            return orderPositionRepository.save(persistentOP).getOrderQuantity();
+        }
+        return 1;
     }
 
     @Override
     public void deleteOrderPositionById(Long id) {
         orderPositionRepository.deleteById(id);
+    }
+
+    @Override
+    public Set<OrderPosition> findByOrderId(Long id) {
+        return orderPositionRepository.findOrderPositionsByOrderId(id);
     }
 
     @Override
@@ -44,7 +54,12 @@ public class OrderPositionImplementation implements OrderPositionService {
 
     @Override
     public OrderPosition update(OrderPosition orderPosition) {
-        return orderPositionRepository.save(orderPosition);
+        OrderPosition opToupdate = orderPositionRepository.findById(orderPosition.getId()).get();
+        opToupdate.setOrder(orderPosition.getOrder());
+        opToupdate.setProduct(orderPosition.getProduct());
+        opToupdate.setOrderQuantity(orderPosition.getOrderQuantity());
+        return orderPositionRepository.save(opToupdate);
+        //return orderPositionRepository.save(orderPosition);
     }
 
     @Override

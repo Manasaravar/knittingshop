@@ -27,7 +27,7 @@
 
 <section id="advertisement">
     <div class="container">
-        <img src="/images/shop/advertisement.png" alt=""/>
+        <img src="/images/shop/rainbow-thread.png" alt=""/>
     </div>
 </section>
 
@@ -52,8 +52,8 @@
                                 <div class="single-products">
 
                                     <div class="productinfo text-center">
-
-                                        <img src="/images/shop/alize_gold.png" alt="268х249"/>
+                                        <img th:src="@{'/images/shop/' + ${product.brand} + '.png'}" alt="268х249">
+<!--                                        <img src="/images/shop/alize_gold.png" alt="268х249"/>-->
                                         <h2>[[${product.price}]] руб.</h2>
                                         <p>[[${product.color}]]</p>
 
@@ -62,7 +62,7 @@
                                         <!--										</form>	-->
 
                                         <button th:data-productId="${product.id}" th:onclick="addButtonHandler(this.getAttribute('data-productId'))">
-                                            Add to cart
+                                            В Корзину
                                         </button>
 
                                         <!--										<a th:href="@{/products/addPosition}" class="btn btn-default add-to-cart">-->
@@ -82,12 +82,6 @@
                         </div>
                     </th:block>
 
-<!--                    <ul class="pagination">-->
-<!--                        <li class="active"><a href="">1</a></li>-->
-<!--                        <li><a href="">2</a></li>-->
-<!--                        <li><a href="">3</a></li>-->
-<!--                        <li><a href="">&raquo;</a></li>-->
-<!--                    </ul>-->
                 </div><!--features_items-->
             </div>
         </div>

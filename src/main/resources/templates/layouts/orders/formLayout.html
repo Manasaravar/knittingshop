@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<th:block th:fragment="ordersFormLayout(order)">
+
+        <form class = "form" th:action="@{${order.id == null ? '/admin/orders' : '/admin/orders/' + order.id}}"
+              th:object="${order}" method="post">
+
+            <label>Создан</label>
+            <input type="text" placeholder="дата создания" th:field="*{created}" >
+            <label>Изменен</label>
+            <input type="text" placeholder="дата изменения" th:field="*{updated}">
+            <label>Статус</label>
+            <input type="text" placeholder="статус" th:field="*{orderStatus}">
+            <label>Стоимость</label>
+            <input type="text" placeholder="стоимость" th:field="*{totalPrice}">
+            <label>Количество</label>
+            <input type="text" placeholder="количество" th:field="*{totalQuantity}">
+            <label>Адрес</label>
+            <input type="text" placeholder="адрес" th:field="*{address}">
+            <label>Клиент</label>
+            <input type="text" placeholder="клиент" th:field="*{user}">
+
+            <input type="submit" value="Add order">
+        </form>
+
+</th:block>
+</body>
+</html>

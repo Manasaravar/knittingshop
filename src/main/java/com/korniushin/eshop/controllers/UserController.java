@@ -15,43 +15,43 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
-@RequestMapping("/admin/users")
+@RequestMapping("/admin")
 @RequiredArgsConstructor
 public class UserController {
 
     private final UserService userService;
 
-    @GetMapping
+    @GetMapping("/users")
     public String users(Model model) {
         List<User> users = userService.all();
         User user = new User();
         model.addAttribute("users", users);
         model.addAttribute("user", user);
-        return "/users";
+        return "users";
     }
 
-    @PostMapping
+    @PostMapping("/users")
     public String add(User user) {
         userService.save(user);
         return "redirect:/admin/users";
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/users/{id}")
    // @PreAuthorize("hasAnyRole('CLIENT', 'ADMIN')")
     public String getEditPage(Model model, @PathVariable Long id) {
         model.addAttribute("user", userService.findById(id).get());
         model.addAttribute("users", userService.all());
-        return "/users";
+        return "users";
     }
 
-    @PostMapping("/{id}")
+    @PostMapping("/users/{id}")
 
     public String update(User user) {
         userService.update(user);
         return "redirect:/admin/users";
     }
 
-    @PostMapping("/delete/{id}")
+    @PostMapping("/users/delete/{id}")
     public String delete(@PathVariable Long id) {
         userService.deleteById(id);
         return "redirect:/admin/users";

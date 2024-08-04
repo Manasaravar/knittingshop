@@ -21,12 +21,22 @@ public class MainController {
         return "admin";
     }
 
-    @GetMapping("/404")
-    public String errorPage() {
-        return "404";
+    @GetMapping("/delivery")
+    public String deliveryPage() {
+        return "delivery";
     }
 
-
-
+    @GetMapping("/aboutUs")
+    public String aboutUsPage() {
+        return "aboutUs";
+    }
+    @GetMapping("/faq")
+    public String faqPage() {
+        return "faq";
+    }
+    @GetMapping("/vacancies")
+    public String vacanciesPage(){
+        return "vacancies";
+    }
 
 }

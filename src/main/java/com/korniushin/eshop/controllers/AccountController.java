@@ -13,8 +13,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @Controller
@@ -36,11 +38,12 @@ public class AccountController {
         User user = userService.findByUsername(username);
         model.addAttribute("user", user);
 
-        Order order = orderService.findOrderByUserId(user.getId());
+        List<Order> orders = orderService
+                .findOrdersByUserId(userService.findById(user.getId()).get().getId()).stream()
+                .filter(order -> !order.getOrderStatus().equals(OrderStatus.CART))
+                .collect(Collectors.toList());
 
-            Set<OrderPosition> orderPositions = order.getProductsPositions();
-            model.addAttribute("order", order);
-            model.addAttribute("orderPositions", orderPositions);
+            model.addAttribute("orders", orders);
 
         return "account";
     }
@@ -48,12 +51,11 @@ public class AccountController {
     @PostMapping("/edit")
     public String clientEdit (User user) {
 
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        User usertoEdit = userService.findByUsername(username);
-        usertoEdit.setUsername(user.getUsername());
-        usertoEdit.setPhone(user.getPhone());
-        usertoEdit.setEmail(user.getEmail());
-        userService.edit(usertoEdit);
+      String username = SecurityContextHolder.getContext().getAuthentication().getName();
+      User userToUpdate = userService.findByUsername(username);
+        userToUpdate.setPhone(user.getPhone());
+        userToUpdate.setEmail(user.getEmail());
+        userService.edit(userToUpdate);
         return "redirect:/account";
     }
 

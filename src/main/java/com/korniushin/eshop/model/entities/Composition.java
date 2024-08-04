@@ -3,11 +3,12 @@ package com.korniushin.eshop.model.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
 @Setter
-@NoArgsConstructor
+
 @AllArgsConstructor
 @Builder
 @Entity
@@ -18,11 +19,15 @@ public class Composition {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQ_NAME)
     @SequenceGenerator(name = SEQ_NAME, sequenceName = SEQ_NAME, allocationSize = 1)
-    private long id;
+    private Long id;
+
+    @Column(name = "title")
     private String title;
 
     @OneToMany (mappedBy = "composition")
-    private Set<Product> product;
+    private Set<Product> products;
+
+    public Composition() {products = new HashSet<>();}
 }
 
 
