@@ -1,42 +1,55 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<th:block th:fragment="itemsFormLayout(product)">
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Title</title>-->
 
-        <form class = "form" th:action="@{${product.id == null ? '/admin/items' : '/admin/items/' + product.id}}"
-              th:object="${product}" method="post">
-
-            <label>article</label>
-            <input type="text" placeholder="article" th:field="*{article}" >
-            <label>price</label>
-            <input type="text" placeholder="price" th:field="*{price}">
-            <label>color</label>
-            <input type="text" placeholder="color" th:field="*{color}">
-            <label>quantity</label>
-            <input type="text" placeholder="quantity" th:field="*{quantity}">
-            <label>unit</label>
-            <input type="text" placeholder="unit" th:field="*{unit}">
-
-            <label>brand</label>
-            <input type="text" placeholder="brand" th:field="*{brand}">
-
-<!--                <select th:field="*{brand}">-->
-<!--                    <option th:each="brandItem : ${dropDownBrands}" th:value="${brandItem.id}" th:text="${brandItem.title}" ></option>-->
-<!--                </select>-->
+<!--</head>-->
+<!--<body>-->
+<!--<th:block th:fragment="itemsFormLayout(product)">-->
 
 
-            <label>category</label>
-            <input type="text" placeholder="category" th:field="*{category.title}">
-            <label>composition</label>
-            <input type="text" placeholder="composition" th:field="*{composition}">
+<!--&lt;!&ndash;            <div>&ndash;&gt;-->
+<!--&lt;!&ndash;                <form th:action="@{/searchItems}" method="post">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <input type="text" placeholder="Поиск" name="keyword" id="keyword" size="25" th:value="${keyword}" required />&ndash;&gt;-->
+<!--&lt;!&ndash;                    <input type="submit" value="Найти" />&ndash;&gt;-->
+<!--&lt;!&ndash;                    <input type="button" value="Очистить" id="btnClear" onclick="clearSearch()" />&ndash;&gt;-->
+<!--&lt;!&ndash;                </form>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
 
-            <input type="submit" value="Add product">
-        </form>
 
-</th:block>
-</body>
-</html>
+<!--        <form class = "form" th:action="@{${product.id == null ? '/admin/items' : '/admin/items/' + product.id}}"-->
+<!--              th:object="${product}" method="post">-->
+
+<!--            <label>article</label>-->
+<!--            <input type="text" placeholder="article" th:field="*{article}" >-->
+<!--            <label>price</label>-->
+<!--            <input type="text" placeholder="price" th:field="*{price}">-->
+<!--            <label>color</label>-->
+<!--            <input type="text" placeholder="color" th:field="*{color}">-->
+<!--            <label>quantity</label>-->
+<!--            <input type="text" placeholder="quantity" th:field="*{quantity}">-->
+<!--            <label>unit</label>-->
+<!--            <input type="text" placeholder="unit" th:field="*{unit}">-->
+
+<!--            <label>brand</label>-->
+<!--            <input type="text" placeholder="brand" th:field="*{brand}">-->
+
+<!--&lt;!&ndash;                <select th:field="*{brand}">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <option th:each="brandItem : ${dropDownBrands}" th:value="${brandItem.id}" th:text="${brandItem.title}" ></option>&ndash;&gt;-->
+<!--&lt;!&ndash;                </select>&ndash;&gt;-->
+
+
+<!--            <label>category</label>-->
+<!--            <input type="text" placeholder="category" th:field="*{category.title}">-->
+<!--            <label>composition</label>-->
+<!--            <input type="text" placeholder="composition" th:field="*{composition}">-->
+
+<!--            <input type="submit" value="Add product">-->
+<!--        </form>-->
+
+
+
+<!--</th:block>-->
+<!--</body>-->
+<!--</html>-->

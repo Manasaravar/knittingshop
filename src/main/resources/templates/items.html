@@ -1,43 +1,44 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
-<head>
-  <meta charset="UTF-8">
-  <title>Items</title>
-  <link rel="stylesheet" href="/css/styles.css">
-</head>
-<body>
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <title>Items</title>-->
+<!--  <link rel="stylesheet" href="/css/styles.css">-->
 
-<th:block th:insert="~{layouts/adminheader.html}"/>
+<!--</head>-->
+<!--<body>-->
+
+<!--<th:block th:insert="~{layouts/adminheader.html}"/>-->
+
+<!--&lt;!&ndash;<div class="container">&ndash;&gt;-->
+<!--&lt;!&ndash;  <div class="row">&ndash;&gt;-->
+<!--&lt;!&ndash;    <div class="col-sm-9">&ndash;&gt;-->
+<!--&lt;!&ndash;      <div class="col-sm-3">&ndash;&gt;-->
+
+<!--&lt;!&ndash;        <form th:action="@{/admin/items}" method="post">&ndash;&gt;-->
+<!--&lt;!&ndash;          <input type="text" placeholder="Поиск" name="keyword" id="keyword" size="25" th:value="${keyword}" required/>&ndash;&gt;-->
+<!--&lt;!&ndash;          <input type="submit" value="Найти"/>&ndash;&gt;-->
+<!--&lt;!&ndash;          <input type="button" value="Очистить" id="btnClear" onclick="clearSearch()"/>&ndash;&gt;-->
+<!--&lt;!&ndash;        </form>&ndash;&gt;-->
+
+<!--&lt;!&ndash;      </div>&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;  </div>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
 
 <!--<div class="container">-->
-<!--  <div class="row">-->
-<!--    <div class="col-sm-9">-->
-<!--      <div class="col-sm-3">-->
+<!--  <div class="modal">-->
+<!--    <th:block th:insert="~{/layouts/items/formLayout.html::itemsFormLayout(${product})}"/>-->
 
-<!--        <form th:action="@{/admin/items}" method="post">-->
-<!--          <input type="text" placeholder="Поиск" name="keyword" id="keyword" size="25" th:value="${keyword}" required/>-->
-<!--          <input type="submit" value="Найти"/>-->
-<!--          <input type="button" value="Очистить" id="btnClear" onclick="clearSearch()"/>-->
-<!--        </form>-->
-
-<!--      </div>-->
-<!--    </div>-->
+<!--    <th:block th:insert="~{/layouts/items/tableLayout.html::itemsTableLayout(${products})}"/>-->
 <!--  </div>-->
 <!--</div>-->
 
-<div class="container">
-  <div class="modal">
-    <th:block th:insert="~{/layouts/items/formLayout.html::itemsFormLayout(${product})}"/>
+<!--&lt;!&ndash;<script type="text/javascript">&ndash;&gt;-->
+<!--&lt;!&ndash;  function clearSearch() {&ndash;&gt;-->
+<!--&lt;!&ndash;    window.location = "[[@{/admin/items}]]";&ndash;&gt;-->
+<!--&lt;!&ndash;  }&ndash;&gt;-->
+<!--&lt;!&ndash;</script>&ndash;&gt;-->
 
-    <th:block th:insert="~{/layouts/items/tableLayout.html::itemsTableLayout(${products})}"/>
-  </div>
-</div>
-
-<!--<script type="text/javascript">-->
-<!--  function clearSearch() {-->
-<!--    window.location = "[[@{/admin/items}]]";-->
-<!--  }-->
-<!--</script>-->
-
-</body>
-</html>
+<!--</body>-->
+<!--</html>-->

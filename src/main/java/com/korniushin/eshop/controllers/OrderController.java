@@ -64,17 +64,16 @@ public class OrderController {
 
     public String addAddress (Model model, String city, String street, String house, String other) {
 
-//        if(Objects.equals(city, "") | Objects.equals(street, "") | Objects.equals(house, "")) {
-//            model.addAttribute("error", "empty");
-//            return "/cart";
-//        }
-//        else {
+        if (Objects.equals(city, "") || Objects.equals(street, "") || Objects.equals(house, "")) {
+            model.addAttribute("error", "empty");
+            return "/cart";
+        } else {
             User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Order order = orderService.findOrderByUserId(userService.findById(user.getId()).get().getId());
-        order.setAddress(city + ", " + street + ", " + house + ", " + other);
-        orderService.save(order);
-      //  }
-        return "redirect:/cart";
+            Order order = orderService.findOrderByUserId(userService.findById(user.getId()).get().getId());
+            order.setAddress(city + ", " + street + ", " + house + ", " + other);
+            orderService.save(order);
+            //  }
+            return "redirect:/cart";
+        }
     }
-
 }

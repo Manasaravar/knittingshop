@@ -15,10 +15,7 @@
 	<link href="/css/responsive.css" rel="stylesheet">
 
 	<link rel="shortcut icon" href="/images/ico/favicon.ico">
-	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/ico/apple-touch-icon-144-precomposed.png">
-	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/ico/apple-touch-icon-114-precomposed.png">
-	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/ico/apple-touch-icon-72-precomposed.png">
-	<link rel="apple-touch-icon-precomposed" href="/images/ico/apple-touch-icon-57-precomposed.png">
+
 
 
 </head><!--/head-->
@@ -42,12 +39,15 @@
 			<div class="col-sm-8">
 				<div class="shop-menu pull-right">
 				<th>
-					<a th:href="@{'/products/page/' + ${currentPage} + '?sortField=price&sortDir=' + ${reverseSortDir}}">
+					<b class="text-info"> СОРТИРОВКА: </b>
+				</th>
+				<th>
+					<a class="sort-button" th:href="@{'/products/page/' + ${currentPage} + '?sortField=price&sortDir=' + ${reverseSortDir}}">
 						Цена</a>
 				</th>&nbsp; &nbsp;
 				<th>
-					<a th:href="@{'/products/page/' + ${currentPage} + '?sortField=brand.title&sortDir=' + ${reverseSortDir}}">
-						Брэнд</a>
+					<a class="sort-button" th:href="@{'/products/page/' + ${currentPage} + '?sortField=brand.title&sortDir=' + ${reverseSortDir}}">
+						Бренд</a>
 				</th>
 			</div>
 			</div>
@@ -58,24 +58,19 @@
 					<th:block th:each="product: ${products}">
 						<div class="col-sm-4">
 							<div class="product-image-wrapper">
-
 								<div class="single-products">
-
 									<div class="productinfo text-center">
-
 										<img th:src="@{'/images/shop/' + ${product.brand.title} + '.png'}" alt="268х249">
-
-<!--										<img src="/images/shop/alize_gold.png" alt="268х249"/>-->
 										<h2>[[${product.price}]] руб.</h2>
 										<p>[[${product.color}]]</p>
-											<button th:data-productId="${product.id}" th:onclick="addButtonHandler(this.getAttribute('data-productId'))">
+											<button class="btn btn-default add-to-cart" th:data-productId="${product.id}" th:onclick="addButtonHandler(this.getAttribute('data-productId'))">
+												<i class="fa fa-shopping-cart"> </i>
 												В корзину
 											</button>
 									</div>
 								</div>
 								<div class="choose">
 									<ul class="nav nav-pills nav-justified">
-
 										<li><a th:href="@{'/products/' + ${product.id}}">
 											<i class="fa fa-plus-square"></i>Детализация</a></li>
 									</ul>
@@ -90,23 +85,33 @@
 							<div class="col-sm-2">
 								Total: [[${totalItems}]]
 							</div>
-							<div class="col-sm-5">
+							<ul class="pagination">
+								<li>
+<!--							<div class="col-sm-5">-->
 									<span th:each="i: ${#numbers.sequence(1, totalPages)}">
 								<a th:if="${currentPage != i}"
 								   th:href="@{'/products/page/' + ${i} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
-								<span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;
+								<span th:unless="${currentPage != i}">[[${i}]]</span>
+<!--										&nbsp; &nbsp;-->
 									</span>
-							</div>
-							<div class="col-sm-1">
+<!--							</div>-->
+								</li>
+
+								<li>
+<!--							<div class="col-sm-1">-->
 								<a th:if="${currentPage < totalPages}"
 								   th:href="@{'/products/page/' + ${currentPage + 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
 								<span th:unless="${currentPage < totalPages}">Next</span>
-							</div>
+<!--							</div>-->
+								</li>
 
-							<div class="col-sm-1">
+								<li>
+<!--							<div class="col-sm-1">-->
 								<a th:if="${currentPage < totalPages}" th:href="@{'/products/page/' + ${totalPages} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
 								<span th:unless="${currentPage < totalPages}">Last</span>
-							</div>
+<!--							</div>-->
+								</li>
+							</ul>
 						</div>
 					</div>
 

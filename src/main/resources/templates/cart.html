@@ -88,8 +88,12 @@
 					<td class="cart_delete">
 						<form method="post" th:action="@{'/cart/remove/' + ${orderPosition.id}}"
 							  th:object="${orderPosition}">
-							<input class="a_button" type="submit" value="Удалить">
+							<input class="btn btn-default add-to-cart" type="submit" value="Удалить">
 						</form>
+
+<!--					<td class="cart_delete">-->
+<!--						<a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>-->
+<!--					</td>-->
 <!--						<a class="cart_quantity_delete" th:href="@{'/cart/remove/' + ${orderPosition}}"><i class="fa fa-times"></i></a>-->
 					</td>
 				</tr>
@@ -128,13 +132,13 @@
 
 						<li class="single_field">Город:</li>
 						<input type="text" name="city"/>
-<!--							<span th:if="${error == 'empty'}">Поле не должно быть пустым</span>-->
+							<span th:if="${error == 'empty'}">Поле не должно быть пустым</span>
 						<li class="single_field">Улица:</li>
 						<input type="text" name="street"/>
-<!--							<span th:if="${error == 'empty'}">Поле не должно быть пустым</span>-->
+							<span th:if="${error == 'empty'}">Поле не должно быть пустым</span>
 						<li class="single_field">Дом:</li>
 						<input type="text" name="house"/>
-<!--							<span th:if="${error == 'empty'}">Поле не должно быть пустым</span>-->
+							<span th:if="${error == 'empty'}">Поле не должно быть пустым</span>
 						<li class="single_field zip-field">Примечание:</li>
 						<input type="text" name="other"/>
 

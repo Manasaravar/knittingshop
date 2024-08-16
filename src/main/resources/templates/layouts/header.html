@@ -81,18 +81,19 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-push-3">
 <!--                        <div class="search_box pull-right">-->
 <!--                            <input type="text" placeholder="Поиск"/>-->
 
                             <form th:action="@{/search}" method="post">
-                                <input type="text" placeholder="Поиск" name="keyword" id="keyword" size="25" th:value="${keyword}" required />
-                                <input type="submit" value="Найти" />
-                                <input type="button" value="Очистить" id="btnClear" onclick="clearSearch()" />
+<!--                                <input class="btn-new" type="button" value="X" id="btnClear" onclick="clearSearch()" />-->
+                                <input class="search_box" type="search" placeholder="Поиск" name="keyword" id="keyword" size="25" th:value="${keyword}"/>
+                                <input class="btn-new" type="submit" value="Найти" />
+<!--                                <input class="btn-new" type="button" value="X" id="btnClear" onclick="clearSearch()" />-->
                             </form>
-
-<!--                        </div>-->
                     </div>
+
+<!--                    </div>-->
                 </div>
             </div>
         </div><!--/header-bottom-->

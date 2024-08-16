@@ -31,7 +31,7 @@ public class UserServiceImplementation implements UserService {
 
     @Override
     public User save(User user) {
-       if (userRepository.findByUsername(user.getUsername()).isEmpty()) {
+       if (userRepository.findByUsername(user.getUsername()).isEmpty() && userRepository.findUserByEmail(user.getEmail()) == null) {
 
            Set<Order> orders = new HashSet<>();
            Set<Reviews> reviews = new HashSet<>();
@@ -94,6 +94,10 @@ public class UserServiceImplementation implements UserService {
         return userRepository.save(userToUpdate);
     }
 
+    @Override
+    public User findByEmail(String email) {
+        return userRepository.findUserByEmail(email);
+    }
 
 
 }

@@ -62,8 +62,15 @@
 
 											<button th:data-productId="${product.id}"
 													th:onclick="addPositionButtonHandler(this.getAttribute('data-productId'))">
-												В корзину
+												<i class="fa fa-shopping-cart"></i>
+											В корзину
 											</button>
+
+<!--									<button  class="btn-new" th:data-productId="${product.id}"-->
+<!--											th:onclick="addButtonHandler(this.getAttribute('data-productId'))">-->
+<!--												<i class="fa fa-shopping-cart"> </i>-->
+<!--											В корзину-->
+<!--									</button>-->
 <!--										<button type="button" class="btn btn-fefault cart" >-->
 <!--											<i class="fa fa-shopping-cart"></i>-->
 <!--											Add to cart-->

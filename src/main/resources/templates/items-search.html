@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+  <meta charset="UTF-8">
+  <title>Items</title>
+  <link rel="stylesheet" href="/css/styles.css">
+
+</head>
+<body>
+
+<th:block th:insert="~{layouts/adminheader.html}"/>
+
+
+<div class="container">
+  <div class="modal">
+<div class="search-items">
+    <form th:action="@{/admin/items-search}" method="get">
+      <input type="search" placeholder="Поиск" name="keyword" size="25" th:value="${keyword}"/>
+      <input type="submit" value="Найти"/>
+      <input type="button" value="Очистить" id="btnClear" onclick="clearSearch()"/>
+    </form>
+</div>
+      <form class = "form" th:action="@{${product.id == null ? '/admin/items-search' : '/admin/items-search/' + product.id}}"
+            th:object="${product}" method="post">
+
+        <label>article</label>
+        <input type="text" placeholder="article" th:field="*{article}" required>
+        <label>price</label>
+        <input type="text" placeholder="price" th:field="*{price}" required>
+        <label>color</label>
+        <input type="text" placeholder="color" th:field="*{color}" required>
+        <label>quantity</label>
+        <input type="text" placeholder="quantity" th:field="*{quantity}" required>
+        <label>unit</label>
+        <input type="text" placeholder="unit" th:field="*{unit}" required>
+        <label>brand</label>
+        <input type="text" placeholder="brand" th:field="*{brand}" required>
+        <label>category</label>
+        <input type="text" placeholder="category" th:field="*{category}" required>
+        <label>composition</label>
+        <input type="text" placeholder="composition" th:field="*{composition}" required>
+
+        <input type="submit" value="Submit">
+      </form>
+
+
+
+      <table class="table">
+        <thead>
+        <th>id</th>
+        <th>Article</th>
+        <th>Price</th>
+        <th>Color</th>
+        <th>Quantity</th>
+        <th>Unit</th>
+        <th>Brand</th>
+        <th>Category</th>
+        <th>Composition</th>
+
+        <th>edit</th>
+        <th>delete</th>
+        </thead>
+        <tbody>
+
+        <th:block th:each="product : ${products}">
+          <tr>
+            <td>[[${product.id}]]</td>
+            <td>[[${product.article}]]</td>
+            <td>[[${product.price}]]</td>
+            <td>[[${product.color}]]</td>
+            <td>[[${product.quantity}]]</td>
+            <td>[[${product.unit}]]</td>
+            <td>[[${product.brand.title}]]</td>
+            <td>[[${product.category.title}]]</td>
+            <td>[[${product.composition.title}]]</td>
+
+            <td>
+              <a class="button" th:href="@{'/admin/items-search/' + ${product.id}}">edit</a>
+            </td>
+
+            <td>
+              <form method="post" th:action="@{'/admin/items-search/delete/' + ${product.id}}">
+                <input class="button" type="submit" value="delete">
+              </form>
+            </td>
+          </tr>
+        </th:block>
+        </tbody>
+      </table>
+
+  </div>
+</div>
+
+<script type="text/javascript">
+  function clearSearch() {
+    window.location = "[[@{/admin/items-search}]]";
+  }
+</script>
+
+</body>
+</html>

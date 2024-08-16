@@ -1067,6 +1067,7 @@ h2.title {
   margin-bottom: 25px;
   margin-top: 0;
   padding-left: 15px;
+  padding-right: 15px;
 }
 
 .pagination  li:first-child  a, .pagination  li:first-child  span {
@@ -1094,10 +1095,10 @@ h2.title {
   float: left;
   line-height: 1.42857;
   margin-left: -1px;
-  padding: 6px 12px;
+  padding: 4px 8px;
   position: relative;
   text-decoration: none;
-  margin-right: 5px;
+  margin-right: 10px;
   color:#000;
 }
 
@@ -2095,4 +2096,35 @@ h2.title {
 .review-author {
   font-size: 14px;
   color: #999;
+}
+
+/*************************
+******* SORT block CSS ********
+**************************/
+
+.sort-button {
+  display: inline-block;
+  background: #2196f3;
+  color: #fff;
+  padding: 10px;
+  border-radius: 3px;
+  text-decoration: none;
+  font-family: Tahoma, serif;
+  font-size: 12px;
+  line-height: 1;
+  font-weight: 150;
+}
+
+/*************************
+******* Search block CSS ********
+**************************/
+.btn-new {
+  border-radius: 10px;
+  color: white;
+  transition: .2s linear;
+  background: #FE980F;
+}
+
+.btn-new:hover {
+  box-shadow: 0 0 0 2px white, 0 0 0 4px #FE980F;
 }

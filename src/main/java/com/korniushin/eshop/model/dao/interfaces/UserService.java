@@ -8,4 +8,5 @@ public interface UserService extends DAO<User> {
 
     User findByUsername(String username);
     User edit(User user);
+    User findByEmail(String email);
 }

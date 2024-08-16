@@ -1,6 +1,10 @@
 package com.korniushin.eshop.model.entities;
 
 import jakarta.persistence.*;
+
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,7 +29,7 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQ_NAME)
     @SequenceGenerator(name = SEQ_NAME,sequenceName = SEQ_NAME,allocationSize = 1)
     private Long id;
-
+//    @Size(min = 3, message = "Имя пользователя не менее 3 символов")
     @Column(name = "username", nullable = false, unique = true, length = 25)
     private String username;
     @Column(name = "password", nullable = false)
@@ -34,7 +38,7 @@ public class User implements UserDetails {
     @Column(name = "email", unique = true, nullable = false)
     private String email;
 
-    @Column(name = "phone", length = 10)
+    @Column(name = "phone", length = 11)
     private String phone;
 
     @Column(name = "archive")

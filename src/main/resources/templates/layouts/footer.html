@@ -19,13 +19,17 @@
                     </div>
                 </div>
                 <div class="col-sm-7">
-
                     <th:block th:each="lesson: ${lessons}">
                     <div class="col-sm-3">
                         <div class="video-gallery text-center">
 
                             <a th:href="@{${lesson.urlLesson}}">
                                 <div class="iframe-img">
+<!--                                    <iframe width="121" height="57" src="https://www.youtube.com/embed/NcwdUjPPyZE?si=QhbOMS5vCDAOuOAP"-->
+<!--                                            title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write;-->
+<!--                                            encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin"-->
+<!--                                            allowfullscreen></iframe>-->
+
                                     <img src="/images/home/master-class.png" th:alt="${lesson.title}" />
                                 </div>
                                 <div class="overlay-icon">
@@ -33,11 +37,10 @@
                                 </div>
                             </a>
                             <p th:text="*{lesson.title}">/p>
-<!--                            <h2>дата</h2>-->
-
                         </div>
                     </div>
                 </th:block>
+
 
                 </div>
                 <div class="col-sm-3">

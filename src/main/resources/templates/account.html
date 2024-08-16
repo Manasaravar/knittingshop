@@ -87,10 +87,10 @@
 										<label> [[${user.username}]] </label>
 									</tr>
 									<tr class="single_field">email
-										<label><input type="email" th:field="*{email}"></label>
+										<label><input type="email" th:field="*{email}" ></label>
 									</tr>
 									<tr class="single_field">phone
-										<label><input type="text" th:field="*{phone}"></label>
+										<label><input type="text" th:field="*{phone}" maxlength="11" minlength="11"></label>
 									</tr>
 								</table>
 							</div>
@@ -158,7 +158,7 @@
 						<tr>
 <!--							<td colspan="4">&nbsp;</td>-->
 							<td colspan="2">Итого:
-										<td>Количество:[[${order.totalQuantity}]]</td>
+										<td>Количество: [[${order.totalQuantity}]]</td>
 										<td>[[${order.totalPrice}]]</td>
 										<td>[[${order.orderStatus}]]</td>
 <!--										<td>Итого</td>-->
